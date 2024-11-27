@@ -1,6 +1,10 @@
-import express from 'express'
-import { signup, login } from '../controllers/authController.js'
+import { Router } from 'express'
 
-export const router = express.Router()
-    .post('/signup', signup)
+import { register } from '../controllers/registerController.js'
+import { login } from '../controllers/loginController.js'
+import { refresh } from '../controllers/refreshController.js'
+
+export const router = Router()
+    .post('/register', register)
     .post('/login', login)
+    .post('/refresh', refresh)
