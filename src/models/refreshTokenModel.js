@@ -4,4 +4,4 @@ const refreshTokenSchema = new Schema({
     token: { type: String, required: true, unique: true }
 });
 
-export default RefreshToken = model('RefreshToken', refreshTokenSchema);
+export const RefreshToken = model('RefreshToken', refreshTokenSchema);

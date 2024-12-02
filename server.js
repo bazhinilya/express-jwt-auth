@@ -1,9 +1,10 @@
+import 'dotenv/config.js'
+
 import express from 'express';
 import cors from 'cors';
 
-import { PORT } from './src/configs/envConfig.js';
 import { router } from './src/routes/authRoute.js';
-import { connect } from './src/configs/dbConfig.js';
+import { dbConnect } from './src/configs/dbConfig.js';
 
 const app = express();
 
@@ -22,7 +23,8 @@ app.use((err, req, res, next) => {
         });
 });
 
-app.listen(PORT || 3000, () => {
+const PORT = process.env.NODE_PORT
+app.listen(PORT, () => {
     console.log(`App runing on ${PORT}`);
-    connect();
+    dbConnect();
 });

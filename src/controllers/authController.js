@@ -1,3 +1,5 @@
+import Joi from 'joi';
+
 import CreateError from '../middlewares/appError.js';
 
 import { getRegisterData, getLoginData, getRefreshData } from '../services/authService.js';
@@ -10,8 +12,9 @@ export const register = async (req, res, next) => {
             password: Joi.string().required()
         });
         const { error } = registerSchema.validate(req.body);
-        error && next(new CreateError('Input data not valid', 422));
-
+        if (error) {
+            return next(new CreateError('Input data not valid', 422));
+        }
         const { accessToken, refreshToken, newUser } = await getRegisterData(req.body);
         res.status(201)
             .json({
@@ -32,8 +35,9 @@ export const login = async (req, res, next) => {
             password: Joi.string().required()
         });
         const { error } = loginSchema.validate(req.body);
-        error || next(new CreateError('Input data not valid', 422));
-
+        if (error) {
+            return next(new CreateError('Input data not valid', 422));
+        }
         const { accessToken, refreshToken, user } = await getLoginData(req.body);
         res.status(200)
             .json({
@@ -53,8 +57,9 @@ export const refresh = async (req, res, next) => {
             refresh_token: Joi.string().required()
         });
         const { error } = tokenSchema.validate(req.body);
-        error && next(new CreateError('Input data not valid', 422));
-
+        if (error) {
+            return next(new CreateError('Input data not valid', 422));
+        }
         const { accessToken, refreshToken, user } = await getRefreshData(req.body.refresh_token);
         res.status(201)
             .json({

@@ -1,10 +1,10 @@
-import { sign, verify } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 export default class JwtService {
     static sign(id, expiry, secret) {
-        return sign({ _id: id }, secret, { expiresIn: expiry });
+        return jwt.sign({ _id: id }, secret, { expiresIn: expiry });
     }
     static verify(token, secret) {
-        return verify(token, secret);
+        return jwt.verify(token, secret);
     }
 }

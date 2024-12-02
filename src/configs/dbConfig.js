@@ -1,8 +1,8 @@
-import { connect } from 'mongoose';
+import 'dotenv/config.js'
 
-import { DB_URL } from './envConfig.js';
+import mongoose from 'mongoose';
 
-export const connect = () =>
-    connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+export const dbConnect = () =>
+    mongoose.connect('mongodb://localhost:27017/auth')
         .then(() => console.log('Connect to mongodb'))
         .catch(err => console.error('Failed to connect to mongodb:', err));
