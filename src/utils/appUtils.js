@@ -1,7 +1,7 @@
-import { compare, hash } from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export const comparePassword = async (candidatePassword, userPassword) =>
-    await compare(candidatePassword, userPassword).catch(() => false);
+    await bcrypt.compare(candidatePassword, userPassword).catch(() => false);
 
 export const hashPassword = async (password) =>
-    await hash(password, 10).catch(() => false);
+    await bcrypt.hash(password, 10).catch(() => false);

@@ -1,22 +1,20 @@
 version: '3.8'
 
 services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    volumes:
+      - db:/data/db
   app:
-    image: node:latest
-    container_name: express-jwt-auth
+    depends_on:
+      - mongodb
     build: .
     ports:
       - ${NODE_PORT}:${NODE_PORT}
     environment:
       - MONGO_URI=${MONGO_URI}
 
-  mongodb:
-    image: mongo:latest
-    container_name: mongo_db
-    ports:
-      - ${DB_PORT}:${DB_PORT}
-    volumes:
-      - mongodb_data:/data/db
-
 volumes:
-  mongodb_data:
+  db:
